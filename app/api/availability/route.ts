@@ -39,6 +39,7 @@ export async function GET(req: NextRequest) {
     });
     events = res.data.items || [];
   } catch (err) {
+    console.error(err);
     return NextResponse.json({ error: "Failed to fetch calendar events" }, { status: 500 });
   }
 
