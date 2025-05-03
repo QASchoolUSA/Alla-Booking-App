@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
   const calendar = google.calendar({ version: "v3", auth });
 
   // Fetch events for the day
-  let events: any[] = [];
+  let events: unknown[] = [];
   try {
     const res = await calendar.events.list({
       calendarId: process.env.GOOGLE_CALENDAR_ID!,
@@ -38,14 +38,13 @@ export async function GET(req: NextRequest) {
       orderBy: "startTime",
     });
     events = res.data.items || [];
-  } catch (err) {
-    console.error(err);
+  } catch {
     return NextResponse.json({ error: "Failed to fetch calendar events" }, { status: 500 });
   }
 
   // Build an array of unavailable hours (mark all hours overlapped by any event)
   const unavailableHours = new Set<number>();
-  for (const event of events) {
+  for (const event of events as Array<{ start?: { dateTime?: string }, end?: { dateTime?: string } }>) {
     if (!event.start?.dateTime || !event.end?.dateTime) continue;
     const eventStart = new Date(event.start.dateTime);
     const eventEnd = new Date(event.end.dateTime);
