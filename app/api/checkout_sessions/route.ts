@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
             },
             unit_amount: Math.round((totalPrice as number) * 100), // Stripe expects cents
           },
-          quantity: 1,
+          quantity: 1,  
         },
       ],
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
