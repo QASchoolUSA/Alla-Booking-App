@@ -12,7 +12,7 @@ import { useState } from "react"
 // Add this import for Stripe redirect
 import { loadStripe } from "@stripe/stripe-js"
 
-const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY as string) // Replace with your Stripe publishable key
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string) // Replace with your Stripe publishable key
 
 export default function BookingPage() {
     const [step, setStep] = useState(1)
